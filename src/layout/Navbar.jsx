@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BiSearchAlt } from "react-icons/bi";
+import { BsFillCartFill } from "react-icons/bs";
 
 const Navbar = () => {
     return (
@@ -28,6 +29,11 @@ const Navbar = () => {
                 <li>
                     <Link to='/dashboard'>Dashboard</Link>
                 </li>
+                <Link to='/cart'>
+                    <li title='cart' className='bg-blue-400 p-2 rounded-full'>
+                        <BsFillCartFill className='text-white ' />
+                    </li>
+                </Link>
             </ul>
         </nav>
     );
