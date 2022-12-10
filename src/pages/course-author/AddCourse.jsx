@@ -1,26 +1,30 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import postCourseData from '../../redux/thunks/postCourseData';
 
 const AddCourse = () => {
-const { register, handleSubmit } = useForm();
+    const { register, handleSubmit } = useForm();
+    const dispatch = useDispatch();
 
-  const submit = (data) => {
-    const date = new Date()
-    const course = {
-        title: data.title,
-        author: data.author,
-        image: data.image,
-        rating: data.rating,
-        price: data.price,
-        topics: [
-            data.topic1,
-            data.topic2,
-            data.topic3,
-        ],
-        lastUpdate: date.toISOString().split('T')[0],
-    };
+    const submit = (data) => {
+        const date = new Date();
+        const newTopics = [];
+        if(data.topic1) newTopics.push(data.topic1.replace(/\s/g,''));
+        if(data.topic2) newTopics.push(data.topic2.replace(/\s/g,''));
+        if(data.topic3) newTopics.push(data.topic3.replace(/\s/g,''));
 
-    console.log(course, "course data");
+        const course = {
+            title: data.title,
+            author: data.author,
+            image: data.image,
+            rating: data.rating,
+            price: data.price,
+            topics: newTopics,
+            lastUpdate: date.toISOString().split('T')[0],
+        };
+
+    dispatch(postCourseData(course));
   };
 
   return (
@@ -55,7 +59,7 @@ const { register, handleSubmit } = useForm();
           <input type='number' name='price' id='price' {...register("price")} />
         </div>
         <div className='flex flex-col w-full max-w-xs'>
-          <label className='mb-2' htmlFor='keyFeature1'>
+          <label className='mb-2' htmlFor='rating'>
             Rating
           </label>
           <input
@@ -98,7 +102,6 @@ const { register, handleSubmit } = useForm();
             {...register("topic3")}
           />
         </div>
-
         <div className='flex justify-between items-center w-full'>
           <button
             className=' px-4 py-3 bg-indigo-500 rounded-md font-semibold text-white text-lg disabled:bg-gray-500'
