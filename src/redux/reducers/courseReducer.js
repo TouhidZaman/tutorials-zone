@@ -1,4 +1,4 @@
-import { ADD_HISTORY, GET_CONTENT } from "../actionTypes";
+import { ADD_CONTENT, ADD_HISTORY, GET_CONTENT } from "../actionTypes";
 
 const initialState  = {
     courses: [],
@@ -11,6 +11,12 @@ const courseReducer = (state = initialState, action) => {
             return {
                 ...state,
                 courses: action.payload
+            }
+
+        case ADD_CONTENT: 
+            return {
+                ...state,
+                courses: [...state.courses, action.payload]
             }
 
         case ADD_HISTORY: 
