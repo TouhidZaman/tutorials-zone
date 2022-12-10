@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import CourseCard from '../components/CourseCard';
+import fetchCourses from '../redux/thunks/fetchCourses';
 
 const Home = () => {
-    const [courses, setCourses] = useState([]);
+    const courses = useSelector(state => state.courseReducer.courses);
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        fetch("http://localhost:5000/courses")
-            .then(res => res.json())
-            .then(data => setCourses(data.data))
+        dispatch(fetchCourses())
     }, [])
 
     const activeClass = "text-white  bg-blue-500 border-white";
