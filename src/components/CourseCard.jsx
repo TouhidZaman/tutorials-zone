@@ -1,8 +1,15 @@
 import React from "react";
 import { BsFillCartFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTopicTags } from "../redux/actions/filterActions";
 
 const CourseCard = ({ course }) => {
+    const topicTags = useSelector(state => state.filterReducer.filters.topicTags)
     const date = new Date(course.lastUpdate);
+    const dispatch = useDispatch();
+
+    const activeClass = 'text-white bg-blue-500';
+
     return (
         <div
         className='shadow-lg rounded-3xl border relative  p-3 flex flex-col text-indigo-900'
@@ -13,8 +20,16 @@ const CourseCard = ({ course }) => {
             </div>
             <div className=' flex-1'>
                 <ul className='flex flex-wrap justify-start gap-1'>
-                    {course.topics.map((feature, index) => {
-                        return <li key={index} className='cursor-pointer text-sm border px-3 rounded font-semibold text-white  bg-blue-500 border-white'>{feature}</li>;
+                    {course.topics.map((topic, index) => {
+                        return (
+                            <li 
+                                key={index} 
+                                className={`cursor-pointer text-sm border px-3 rounded font-semibold border-blue-500 ${topicTags.includes(topic) ? activeClass : ""}`}
+                                onClick={() => dispatch(toggleTopicTags(topic))}
+                                >
+                                    {topic}
+                            </li>
+                        )
                     })}
                 </ul>
             </div>
