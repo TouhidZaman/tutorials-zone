@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { addNewCourse, loadCourses } from "../actions/courseActions";
+import { addNewCourse } from "../actions/courseActions";
 
 const postCourseData = (course) => async dispatch => {
     const requestOptions = {

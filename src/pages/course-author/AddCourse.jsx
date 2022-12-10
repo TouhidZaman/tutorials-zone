@@ -8,22 +8,22 @@ const AddCourse = () => {
     const dispatch = useDispatch();
 
     const submit = (data) => {
-        const date = new Date()
+        const date = new Date();
+        const newTopics = [];
+        if(data.topic1) newTopics.push(data.topic1.replace(/\s/g,''));
+        if(data.topic2) newTopics.push(data.topic2.replace(/\s/g,''));
+        if(data.topic3) newTopics.push(data.topic3.replace(/\s/g,''));
+
         const course = {
             title: data.title,
             author: data.author,
             image: data.image,
             rating: data.rating,
             price: data.price,
-            topics: [
-                data.topic1,
-                data.topic2,
-                data.topic3,
-            ],
+            topics: newTopics,
             lastUpdate: date.toISOString().split('T')[0],
         };
 
-    console.log(course, "course data");
     dispatch(postCourseData(course));
   };
 

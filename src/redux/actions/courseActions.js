@@ -1,4 +1,4 @@
-import { ADD_HISTORY, GET_CONTENT, ADD_CONTENT } from "../actionTypes"
+import { ADD_HISTORY, GET_CONTENT, ADD_CONTENT, DELETE_CONTENT } from "../actionTypes"
 
 export const loadCourses = (courses) => {
     return {
@@ -11,6 +11,13 @@ export const addNewCourse = (course) => {
     return {
         type: ADD_CONTENT,
         payload: course
+    }
+}
+
+export const removeCourse = (courseId) => {
+    return {
+        type: DELETE_CONTENT,
+        payload: courseId
     }
 }
 

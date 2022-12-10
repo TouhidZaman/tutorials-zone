@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import deleteCourseData from '../../redux/thunks/deleteCourseData';
 import fetchCourses from '../../redux/thunks/fetchCourses';
 
 const AllCourses = () => {
@@ -55,7 +56,7 @@ const AllCourses = () => {
                                 </td>
                                 <td className='p-2'>
                                     <div className='flex justify-center'>
-                                    <button>
+                                    <button onClick={() => dispatch(deleteCourseData(_id))}>
                                         <svg
                                         className='w-8 h-8 hover:text-blue-600 rounded-full hover:bg-gray-100 p-1'
                                         fill='none'
