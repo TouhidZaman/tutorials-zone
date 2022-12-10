@@ -7,3 +7,6 @@ export const DELETE_CONTENT = "DELETE_CONTENT";
 //Sort and filtering actions
 export const SORT_BY_UPLOAD = "SORT_BY_UPLOAD";
 export const TOGGLE_TOPIC_TAGS = "TOGGLE_TOPIC_TAGS";
+
+//Histories actions
+export const ADD_HISTORY = "ADD_HISTORY";

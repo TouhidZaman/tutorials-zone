@@ -1,12 +1,20 @@
 import React from "react";
 import { BsFillCartFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { addToCourseHistory } from "../redux/actions/courseActions";
 import { toggleTopicTags } from "../redux/actions/filterActions";
 
-const CourseCard = ({ course }) => {
+const CourseCard = ({ course, isInHistory }) => {
     const topicTags = useSelector(state => state.filterReducer.filters.topicTags)
     const date = new Date(course.lastUpdate);
     const dispatch = useDispatch();
+    const navigate = useNavigate()
+
+    const handleCourseView = () => {
+        dispatch(addToCourseHistory(course));
+        navigate(`/course-view/${course._id}`)
+    }
 
     const activeClass = 'text-white bg-blue-500';
 
@@ -24,8 +32,11 @@ const CourseCard = ({ course }) => {
                         return (
                             <li 
                                 key={index} 
-                                className={`cursor-pointer text-sm border px-3 rounded font-semibold border-blue-500 ${topicTags.includes(topic) ? activeClass : ""}`}
-                                onClick={() => dispatch(toggleTopicTags(topic))}
+                                className={`${!isInHistory ? "cursor-pointer" : ""} text-sm border px-3 rounded font-semibold border-blue-500 
+                                    ${(topicTags.includes(topic) && !isInHistory) ? activeClass : ""}`
+                                }
+                                onClick={() => !isInHistory && dispatch(toggleTopicTags(topic))}
+                                
                                 >
                                     {topic}
                             </li>
@@ -42,6 +53,7 @@ const CourseCard = ({ course }) => {
             <div className='flex gap-2'>
                 <button 
                     className='bg-blue-500 rounded-full py-1 px-2 flex-1 text-white text-bold'
+                    onClick={handleCourseView}
                 >
                     View Details
                 </button>
